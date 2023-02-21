@@ -30,7 +30,7 @@ export const CalendarModal = () => {
 
     const {isDateModalOpen,closeDateModal}=useUiStore();
 
-    const {activeEvent}=useCalendarStore();
+    const {activeEvent,startSavingEvent}=useCalendarStore();
 
     const [formSumbitted, setFormSumbitted] = useState(false)
    /*  const [isOpen, setIsOpen] = useState(true); */
@@ -71,7 +71,7 @@ export const CalendarModal = () => {
 
     }
 
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault();
         setFormSumbitted(true);
         const difference = differenceInSeconds(formValues.end, formValues.start)
@@ -88,6 +88,9 @@ export const CalendarModal = () => {
         console.log(formValues);
         //TODO:
         //cerrar modal , remover
+        await startSavingEvent(formValues);
+        closeDateModal();
+        setFormSumbitted(false);
 
     }
 

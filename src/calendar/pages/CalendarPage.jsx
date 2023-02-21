@@ -7,6 +7,8 @@ import { CalendarEvent } from '../components/CalendarEvent';
 import { useState } from 'react';
 import { CalendarModal } from '../components/CalendarModal';
 import { useCalendarStore, useUiStore } from '../../hooks';
+import { FabAddNew } from '../components/FabAddNew';
+import { FabDelete } from '../components/FabDelete';
 
 
 
@@ -85,6 +87,8 @@ export const CalendarPage = () => {
         style={{ height: 'calc( 100vh - 80px )' }}
       />
     <CalendarModal/>
+    <FabAddNew/>
+    <FabDelete/>
 
     </>
   )
