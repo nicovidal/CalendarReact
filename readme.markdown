@@ -14,3 +14,13 @@ yarn add react-modal
 date picker
 
 yarn add react-datepicker
+
+sweetalert 
+
+yarn add sweetalert2
+
+redux toolkit
+
+yarn add @reduxjs/toolkit
+yarn add react-redux
+
