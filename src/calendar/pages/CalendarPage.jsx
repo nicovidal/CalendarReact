@@ -4,9 +4,9 @@ import { localizer, getMessagesEs } from '../../helpers';
 import { NavBar } from "../components/NavBar"
 import { addHours } from 'date-fns';
 import { CalendarEvent } from '../components/CalendarEvent';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CalendarModal } from '../components/CalendarModal';
-import { useCalendarStore, useUiStore } from '../../hooks';
+import { useAuthStore, useCalendarStore, useUiStore } from '../../hooks';
 import { FabAddNew } from '../components/FabAddNew';
 import { FabDelete } from '../components/FabDelete';
 
@@ -26,9 +26,11 @@ import { FabDelete } from '../components/FabDelete';
  */
 export const CalendarPage = () => {
 
+  const {user}=useAuthStore();
+
   const {openDateModal}=useUiStore();
   
-  const {events,setActiveEvent}=useCalendarStore();
+  const {events,setActiveEvent,startLoadingEvents}=useCalendarStore();
 
   const [lastView, setLastView] = useState(localStorage.getItem('lastView')||'week')
 
@@ -36,9 +38,13 @@ export const CalendarPage = () => {
   const eventStyleGetter = (event, start, end, isSelected) => {
 
     /* console.log({event,start,end,isSelected}) */
+    console.log(event)
+    const isMyEvent=(user.uid === event.user._id)||(user.uid === event.user.uid);
+
+
 
     const style = {
-      backGroundColor: '#347CF7',
+      backGroundColor: isMyEvent ? '#347CF7': '#bb3a3a' ,
       borderRadius: '0px',
       opacity: 0.8,
       color: 'white'
@@ -65,6 +71,12 @@ export const CalendarPage = () => {
     localStorage.setItem('lastView',event)
     /* setLastView(event); */
   }
+
+  useEffect(() => {
+    startLoadingEvents();
+  
+  }, [])
+  
 
   return (
     <>
