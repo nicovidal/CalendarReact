@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import calendarApi from "../api/calendarApi";
-import { clearErrorMessage, onCheking, onLogin, onLogout } from "../store";
+import { clearErrorMessage, onChecking, onLogin, onLogout } from "../store";
 
 export const useAuthStore = () => {
   const { status, user, errorMessage } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const startLogin = async ({ email, password }) => {
-    dispatch(onCheking());
+    dispatch(onChecking());
 
     try {
       //pregunta y respuesta al back-end
@@ -24,6 +24,9 @@ export const useAuthStore = () => {
       }, 10);
     }
   };
+
+  
+
 
   const startRegister = async ({ email, password, name }) => {
     dispatch(onCheking());
